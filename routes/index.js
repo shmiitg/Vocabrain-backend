@@ -49,7 +49,7 @@ router.delete("/words/:id", async (req, res) => {
     try {
         const word = await Word.findByIdAndDelete(id);
         if (!word) {
-            return res.status(404).json({ message: "Word not found" });
+            return res.status(404).json({ error: "Word not found" });
         }
         res.status(200).json({ message: "Word deleted" });
     } catch (err) {
