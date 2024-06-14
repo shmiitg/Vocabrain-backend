@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/words", indexRouter);
+app.use("/word", indexRouter);
 app.use("/ows", owsRouter);
 
 const port = process.env.PORT || 5000;
