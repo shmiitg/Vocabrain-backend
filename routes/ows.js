@@ -19,7 +19,7 @@ router.post("/save", async (req, res) => {
         }
         const new_word = new OWS({ word, meanings });
         await new_word.save();
-        res.status(200).json({ message: "Word added successfully" });
+        res.status(201).json({ message: "Word added successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
