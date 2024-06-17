@@ -38,7 +38,7 @@ router.put("/:id", async (req, res) => {
         if (!word) {
             return res.status(404).json({ error: "Word not found" });
         }
-        res.status(200).json({ message: "Word deleted" });
+        res.status(200).json({ message: "Word Edited" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
