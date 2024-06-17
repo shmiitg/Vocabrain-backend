@@ -21,7 +21,7 @@ router.post("/save", async (req, res) => {
         }
         const new_word = new Word({ word, meanings });
         await new_word.save();
-        res.status(200).json({ message: "Word added successfully" });
+        res.status(200).json({ message: "Word added" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -38,7 +38,7 @@ router.put("/:id", async (req, res) => {
         if (!word) {
             return res.status(404).json({ error: "Word not found" });
         }
-        res.status(200).json({ message: "Word Edited" });
+        res.status(200).json({ message: "Word edited" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
