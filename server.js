@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const indexRouter = require("./routes/index");
+const idiomRouter = require("./routes/idiom");
 const owsRouter = require("./routes/ows");
 const visitRouter = require("./routes/visit");
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/word", indexRouter);
+app.use("/idiom", idiomRouter);
 app.use("/ows", owsRouter);
 app.use("/visit", visitRouter);
 
