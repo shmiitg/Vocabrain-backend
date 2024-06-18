@@ -16,8 +16,8 @@ router.get("/", async (req, res) => {
 router.post("/save", async (req, res) => {
     try {
         const { idiom, meaning, example, type } = req.body;
-        if (!idiom || !meaning) {
-            return res.status(422).json({ error: "Idiom and meaning are required" });
+        if (!idiom) {
+            return res.status(422).json({ error: "Idiom is required" });
         }
         const new_idiom = new Idiom({ idiom, meaning, example, type });
         await new_idiom.save();
