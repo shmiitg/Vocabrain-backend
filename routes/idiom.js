@@ -6,7 +6,6 @@ const Idiom = require("../models/idiom");
 router.get("/", async (req, res) => {
     try {
         const idioms = await Idiom.find();
-        console.log(idioms[0]);
         res.status(200).json({ idioms: idioms });
     } catch (err) {
         res.status(500).json({ error: "Server error" });
