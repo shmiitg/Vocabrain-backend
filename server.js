@@ -5,6 +5,7 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const idiomRouter = require("./routes/idiom");
 const owsRouter = require("./routes/ows");
+const revisionRouter = require("./routes/revision");
 const visitRouter = require("./routes/visit");
 
 require("./config/db");
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/word", indexRouter);
 app.use("/idiom", idiomRouter);
 app.use("/ows", owsRouter);
+app.use("/revision", revisionRouter);
 app.use("/visit", visitRouter);
 
 const port = process.env.PORT || 5000;
