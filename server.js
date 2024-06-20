@@ -5,6 +5,7 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const idiomRouter = require("./routes/idiom");
 const owsRouter = require("./routes/ows");
+const spellingRouter = require("./routes/spelling");
 const revisionRouter = require("./routes/revision");
 const visitRouter = require("./routes/visit");
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/word", indexRouter);
 app.use("/idiom", idiomRouter);
 app.use("/ows", owsRouter);
+app.use("/spelling", spellingRouter);
 app.use("/revision", revisionRouter);
 app.use("/visit", visitRouter);
 
