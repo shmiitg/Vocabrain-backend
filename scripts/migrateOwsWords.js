@@ -1,30 +1,41 @@
 const OWS = require("../models/ows");
+const OWS1 = require("../models/ows1");
 
 const migrateOwsWords = async () => {
     try {
-        const owsDocuments = await OWS.find();
+        const allOWS = await OWS.find();
+        for (const ows of allOWS) {
+            // Log the entire document for debugging purposes
+            // console.log(`Processing OWS with ID: ${ows._id}`);
 
-        console.log(`Found ${owsDocuments.length} documents`);
+            if (
+                ows.word &&
+                Array.isArray(ows.word) &&
+                ows.meanings &&
+                Array.isArray(ows.meanings)
+            ) {
+                // Map the current structure to the new structure
+                const newOws = ows.word.map((word, index) => ({
+                    word: word,
+                    definition: ows.meanings[index] ? ows.meanings[index].definition : "",
+                    example: ows.meanings[index] ? ows.meanings[index].example : "",
+                }));
 
-        for (const doc of owsDocuments) {
-            if (typeof doc.word === "string") {
-                console.log(`Updating document with word: ${doc.word}`);
-                doc.word = [doc.word]; // Convert the string to an array with one element
-                await doc.save();
-                console.log(`Updated document: ${doc}`);
-            } else if (Array.isArray(doc.word)) {
-                console.log(`Document already has word as array: ${doc.word}`);
+                const ows1 = new OWS1({ ows: newOws });
+                await ows1.save();
+                console.log(`Successfully updated OWS with ID: ${ows._id}`);
             } else {
-                console.log(
-                    `Unexpected type for word field: ${typeof doc.word} in document: ${doc}`
-                );
+                console.error(`OWS with ID: ${ows._id} has invalid data structure.`);
+                console.error(`Word: ${ows.word}, Meanings: ${ows.meanings}`);
+                console.error(`Full Document: ${JSON.stringify(ows, null, 2)}`);
             }
         }
-
-        console.log("Migration complete.");
-    } catch (err) {
-        console.error("Error during migration:", err);
+        console.log("Migration complete");
+    } catch (error) {
+        console.error("Migration failed:", error);
     }
 };
+
+// migrateOwsWords();
 
 module.exports = migrateOwsWords;
