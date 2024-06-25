@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const migrateOwsWords = require("../scripts/migrateOwsWords");
 const DB = process.env.USER_DB;
 // const DB = process.env.LOCAL_USER_DB;
 

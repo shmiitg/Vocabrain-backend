@@ -19,7 +19,7 @@ const schema = new mongoose.Schema(
         favorites: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Word",
+                ref: "word",
             },
         ],
     },
