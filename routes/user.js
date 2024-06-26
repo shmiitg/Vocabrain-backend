@@ -49,7 +49,7 @@ router.delete("/favorites/:id", auth, async (req, res) => {
 router.get("/favorites", auth, async (req, res) => {
     try {
         const user = await User.findById(req.userId).populate("favorites");
-        res.json(user.favorites);
+        res.json({ favorites: user.favorites.map((fav) => fav.id) });
     } catch (err) {
         res.status(500).send("Server Error");
     }
