@@ -4,6 +4,16 @@ const User = require("../models/user");
 const Word = require("../models/word");
 const auth = require("../middleware/auth");
 
+// Get user details
+router.get("/", auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.userId).populate("favorites");
+        res.json({ username: user.username, favorites: user.favorites });
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+
 // Add to favorites
 router.post("/favorites/:id", auth, async (req, res) => {
     try {
@@ -40,16 +50,6 @@ router.delete("/favorites/:id", auth, async (req, res) => {
         await user.save();
 
         res.json({ favorites: user.favorites, msg: "Word removed successfully" });
-    } catch (err) {
-        res.status(500).send("Server Error");
-    }
-});
-
-// Get favorites
-router.get("/favorites", auth, async (req, res) => {
-    try {
-        const user = await User.findById(req.userId).populate("favorites");
-        res.json({ favorites: user.favorites });
     } catch (err) {
         res.status(500).send("Server Error");
     }
